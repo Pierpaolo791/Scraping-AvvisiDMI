@@ -26,7 +26,7 @@ public class ParserAvvisi_DMIUNICT {
        
         Document doc[] = new Document[4]; // 0, html tr. inf || 1, html  tr. mat || 2, html mag. inf || 3, html mag. matematica
         Parser parser;
-        String inLink = "201710";
+        String inLink = inLink();
         FileManager fm = new FileManager();
         File fileX=null, fileY=null;
         try {
