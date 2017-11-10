@@ -45,7 +45,7 @@ public class ParserAvvisi_DMIUNICT {
         // Gestione estrapolazione documenti HTML    
         for (int i=0; i<doc.length; i++) {
         try {
-            doc[i] = Jsoup.connect(linkArchivio[i]+inLink).get();
+            doc[i] = Jsoup.connect(linkArchivio[i]).get();
         } catch(Exception e) {
             System.err.println("Errore (Exception)"); 
             // Le possibili cause di errore è la connessione lenta, un giorno la gestirò
@@ -77,6 +77,7 @@ public class ParserAvvisi_DMIUNICT {
         }
 
     }
+    
     public static String inLink() {
          
         String inLink;
@@ -91,5 +92,6 @@ public class ParserAvvisi_DMIUNICT {
         return inLink;
            
     }
+    
 }
  
