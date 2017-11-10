@@ -10,9 +10,9 @@ public class Parser {
     private String[] conditionManagment = {
         "<div",
         "class=\"views-field",
-        "views-field-title\">",
-        "<h6",
-        "class=\"field-content\"><a"    
+        "views-field-php\">",
+        "<span",
+        "class=\"field-content\"><a"  
     }; // Array di stringhe per individuare il link || Core del parser || 
     private ArrayList<Avviso> avvisi;
    
