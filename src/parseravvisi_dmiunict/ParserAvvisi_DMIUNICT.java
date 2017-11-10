@@ -2,16 +2,15 @@ package parseravvisi_dmiunict;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.StringTokenizer;
 import org.jsoup.nodes.Document;
 import org.jsoup.Jsoup;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import javax.json.*;
+import java.text.DateFormat;
+import javax.json.JsonObject;
+
 public class ParserAvvisi_DMIUNICT {
     static String pathData = "..\\..\\data"; // config 
     static String[] linkArchivio = { // Link archivi avvisi dei CdL
@@ -22,11 +21,10 @@ public class ParserAvvisi_DMIUNICT {
     };
 
    
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws IOException {
        
         Document doc[] = new Document[4]; // 0, html tr. inf || 1, html  tr. mat || 2, html mag. inf || 3, html mag. matematica
         Parser parser;
-        String inLink = inLink();
         FileManager fm = new FileManager();
         File fileX=null, fileY=null;
         try {
@@ -52,8 +50,7 @@ public class ParserAvvisi_DMIUNICT {
             }
         }
             
-            
-            
+   
         // Parsing + Estrapolazione link
         parser = new Parser();
         for (int i=0; i<doc.length; i++) 
@@ -63,7 +60,7 @@ public class ParserAvvisi_DMIUNICT {
             Avviso x = (Avviso) parser.getAvvisi().get(i); // Casting da Object ad Avvisi -- Vediamo che succede
             String nomeCdl = x.getNomeCdL();
             String link = x.getLink().toString();
-            JsonObject json = Json.createObjectBuilder()
+            JsonObject json = javax.json.Json.createObjectBuilder()
             .add(nomeCdl,link)
             .build();
             String contenuto = FileManager.leggi(fileX);
@@ -78,7 +75,7 @@ public class ParserAvvisi_DMIUNICT {
 
     }
     
-    public static String inLink() {
+    public static String inLink() { // Attualmente non serve più a niente
          
         String inLink;
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
