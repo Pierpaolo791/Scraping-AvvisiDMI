@@ -15,10 +15,10 @@ import javax.json.*;
 public class ParserAvvisi_DMIUNICT {
     static String pathData = "..\\..\\data"; // config 
     static String[] linkArchivio = { // Link archivi avvisi dei CdL
-        "http://web.dmi.unict.it/Didattica/Laurea%20Triennale%20in%20Informatica%20L-31/Avvisi/Archivio%20Avvisi/",   // Triennale Informatica
-        "http://web.dmi.unict.it/Didattica/Laurea%20Triennale%20in%20Matematica%20L-35/Avvisi/Archivio%20avvisi/", // Triennale Matematica
-        "http://web.dmi.unict.it/Didattica/Laurea%20Magistrale%20in%20Informatica%20LM-18/Avvisi/Archivio%20Avvisi/", // Magistrale Informatica
-        "http://web.dmi.unict.it/Didattica/Laurea%20Magistrale%20in%20Matematica%20LM-40/Avvisi/Archivio%20avvisi/" // Magistrale Matematica
+        "http://web.dmi.unict.it/corsi/l-31/avvisi/",   // Triennale Informatica
+        "http://web.dmi.unict.it/corsi/l-35/avvisi/", // Triennale Matematica
+        "http://web.dmi.unict.it/corsi/lm-18/avvisi/", // Magistrale Informatica
+        "http://web.dmi.unict.it/corsi/lm-40/avvisi/" // Magistrale Matematica
     };
 
    
