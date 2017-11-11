@@ -12,7 +12,7 @@ import java.text.DateFormat;
 import javax.json.JsonObject;
 
 public class ParserAvvisi_DMIUNICT {
-    static String pathData = "..\\..\\data"; // config 
+    static String pathData = "data\\";
     static String[] linkArchivio = { // Link archivi avvisi dei CdL
         "http://web.dmi.unict.it/corsi/l-31/avvisi/",   // Triennale Informatica
         "http://web.dmi.unict.it/corsi/l-35/avvisi/", // Triennale Matematica
@@ -25,16 +25,17 @@ public class ParserAvvisi_DMIUNICT {
        
         Document doc[] = new Document[4]; // 0, html tr. inf || 1, html  tr. mat || 2, html mag. inf || 3, html mag. matematica
         Parser parser;
+        String inLink = inLink();
         FileManager fm = new FileManager();
         File fileX=null, fileY=null;
         try {
-            fileX = fm.file("dataX");
+            fileX = fm.file(pathData+"dataX");
         } catch(FileException e) {
             System.err.println("Il file X non è stato creato a causa di qualche errore");
             //Sarebbe giusto che in futuro faccio qualcosa che mi avvisa
         } 
         try {
-            fileY = fm.file("dataY");
+            fileY = fm.file(pathData+"dataY");
         } catch(FileException e) {
             System.err.println("Il file Y non è stato creato a causa di qualche errore");
             //Sarebbe giusto che in futuro faccio qualcosa che mi avvisa
@@ -50,7 +51,8 @@ public class ParserAvvisi_DMIUNICT {
             }
         }
             
-   
+            
+            
         // Parsing + Estrapolazione link
         parser = new Parser();
         for (int i=0; i<doc.length; i++) 
@@ -75,7 +77,7 @@ public class ParserAvvisi_DMIUNICT {
 
     }
     
-    public static String inLink() { // Attualmente non serve più a niente
+    public static String inLink() {
          
         String inLink;
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);

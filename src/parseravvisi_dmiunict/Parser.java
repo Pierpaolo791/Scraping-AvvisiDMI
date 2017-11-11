@@ -12,7 +12,7 @@ public class Parser {
         "class=\"views-field",
         "views-field-php\">",
         "<span",
-        "class=\"field-content\"><a"  
+        "class=\"field-content\"><a"    
     }; // Array di stringhe per individuare il link || Core del parser || 
     private ArrayList<Avviso> avvisi;
    
