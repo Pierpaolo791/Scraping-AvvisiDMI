@@ -19,23 +19,28 @@ public class ParserAvvisi_DMIUNICT {
         "http://web.dmi.unict.it/corsi/lm-18/avvisi/", // Magistrale Informatica
         "http://web.dmi.unict.it/corsi/lm-40/avvisi/" // Magistrale Matematica
     };
+    static String[] fileName = {
+        "archivioAvvisi.dat",
+        "avviso.dat"       
+    };
+
 
    
     public static void main(String[] args) throws IOException {
-       
+        
         Document doc[] = new Document[4]; // 0, html tr. inf || 1, html  tr. mat || 2, html mag. inf || 3, html mag. matematica
         Parser parser;
         String inLink = inLink();
         FileManager fm = new FileManager();
         File fileX=null, fileY=null;
         try {
-            fileX = fm.file(pathData+"dataX");
+            fileX = fm.file(pathData+fileName[0]);
         } catch(FileException e) {
             System.err.println("Il file X non è stato creato a causa di qualche errore");
             //Sarebbe giusto che in futuro faccio qualcosa che mi avvisa
         } 
         try {
-            fileY = fm.file(pathData+"dataY");
+            fileY = fm.file(pathData+fileName[1]);
         } catch(FileException e) {
             System.err.println("Il file Y non è stato creato a causa di qualche errore");
             //Sarebbe giusto che in futuro faccio qualcosa che mi avvisa
@@ -93,4 +98,5 @@ public class ParserAvvisi_DMIUNICT {
     }
     
 }
+ 
  
