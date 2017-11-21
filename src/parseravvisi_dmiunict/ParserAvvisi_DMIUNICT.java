@@ -1,4 +1,4 @@
-package parseravvisi_dmiunict;
+﻿package parseravvisi_dmiunict;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,25 +25,25 @@ public class ParserAvvisi_DMIUNICT {
     };
 
 
-   
     public static void main(String[] args) throws IOException {
         
         Document doc[] = new Document[4]; // 0, html tr. inf || 1, html  tr. mat || 2, html mag. inf || 3, html mag. matematica
         Parser parser;
-        String inLink = inLink();
         FileManager fm = new FileManager();
         File fileX=null, fileY=null;
+        
+
         try {
             fileX = fm.file(pathData+fileName[0]);
         } catch(FileException e) {
-            System.err.println("Il file X non è stato creato a causa di qualche errore");
-            //Sarebbe giusto che in futuro faccio qualcosa che mi avvisa
+            System.err.println("Il file "+pathData+fileName[0]+" non è stato creato a causa di qualche errore");
+            e.printStackTrace();
         } 
         try {
             fileY = fm.file(pathData+fileName[1]);
         } catch(FileException e) {
-            System.err.println("Il file Y non è stato creato a causa di qualche errore");
-            //Sarebbe giusto che in futuro faccio qualcosa che mi avvisa
+            System.err.println("Il file "+pathData+fileName[0]+" non è stato creato a causa di qualche errore");
+            e.printStackTrace();
         }   
         
         // Gestione estrapolazione documenti HTML    
@@ -51,24 +51,20 @@ public class ParserAvvisi_DMIUNICT {
         try {
             doc[i] = Jsoup.connect(linkArchivio[i]).get();
         } catch(Exception e) {
-            System.err.println("Errore (Exception)"); 
-            // Le possibili cause di errore è la connessione lenta, un giorno la gestirò
+            e.printStackTrace(); 
             }
         }
-            
-            
-            
         // Parsing + Estrapolazione link
         parser = new Parser();
         for (int i=0; i<doc.length; i++) 
-            parser.generaLink(i,doc[i].toString());
+            parser.generaLink(i,doc[i].getElementsByClass("views-field views-field-php").toString());
             
         for (int i=0; i<parser.getAvvisi().size(); i++) {
-            Avviso x = (Avviso) parser.getAvvisi().get(i); // Casting da Object ad Avvisi -- Vediamo che succede
+            Avviso x = (Avviso) parser.getAvvisi().get(i);
             String nomeCdl = x.getNomeCdL();
             String link = x.getLink().toString();
             JsonObject json = javax.json.Json.createObjectBuilder()
-            .add(nomeCdl,link)
+            .add(x.getNomeCdL(),x.getLink().toString())
             .build();
             String contenuto = FileManager.leggi(fileX);
     
@@ -76,27 +72,9 @@ public class ParserAvvisi_DMIUNICT {
                 FileManager.scrivi(fileX,json.toString(),contenuto);
                 FileManager.scrivi(fileY,json.toString());
             }
-                    
-                    
         }
 
     }
-    
-    public static String inLink() {
-         
-        String inLink;
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-        Date today = calendar.getTime();
-        DateFormat dateFormat =DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-        String data = dateFormat.format(today); // gg/mm/aa
-        String mese = data.substring(3,5); // mm
-        String anno = data.substring(6,8); // gg
-        inLink = "20"+anno+mese; // 20 + mm + gg 
-        
-        return inLink;
-           
-    }
-    
-}
  
+}
  

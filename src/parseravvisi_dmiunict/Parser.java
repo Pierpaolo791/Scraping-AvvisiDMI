@@ -8,6 +8,7 @@ public class Parser {
  
     protected static String LINK = "http://web.dmi.unict.it"; // Base del sito, quindi verrà LINK + risultato parsing depurato 
     private String[] conditionManagment = {
+        
         "<div",
         "class=\"views-field",
         "views-field-php\">",
@@ -64,7 +65,7 @@ public class Parser {
                 if(stx.nextToken().equals("href=")) {
                     //arrayLink.add(this.LINK+stx.nextToken());
                     try {
-                    creaAvviso(idCdL,new URL(LINK+stx.nextToken()));
+                        creaAvviso(idCdL,new URL(LINK+stx.nextToken()));
                     } catch (Exception e) {
                         System.err.println("Errore (Exception)");
                     }
