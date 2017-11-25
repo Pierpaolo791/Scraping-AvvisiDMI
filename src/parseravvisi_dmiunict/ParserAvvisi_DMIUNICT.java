@@ -1,4 +1,4 @@
-﻿package parseravvisi_dmiunict;
+package parseravvisi_dmiunict;
 
 import java.io.File;
 import java.io.IOException;
