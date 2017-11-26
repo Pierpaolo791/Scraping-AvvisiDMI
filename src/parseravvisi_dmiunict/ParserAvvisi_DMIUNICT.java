@@ -75,7 +75,7 @@ public class ParserAvvisi_DMIUNICT {
       
                 Document news = Jsoup.connect(x.getStrLink()).get();
                 newsCompleta = getNews(news);
-                FileManager.scrivi(fileY,"**"+x.getNomeCdL()+"**"+"\n"+newsCompleta);
+                FileManager.scrivi(fileY,"<b>["+x.getNomeCdL()+"]</b>"+"\n"+newsCompleta);
             }
         }
         
@@ -84,7 +84,7 @@ public class ParserAvvisi_DMIUNICT {
             public static String getNews(Document news) {
             String newsCompleta = new String();
             
-            String titolo = "**"+news.getElementsByClass("page-title").text()+"**\n";
+            String titolo = "<b>"+news.getElementsByClass("page-title").text()+"</b>\n";
             String link = news.baseUri()+"\n";
             String contenuto = news.getElementsByClass("content").get(1).text();
             newsCompleta = link+titolo+contenuto;
