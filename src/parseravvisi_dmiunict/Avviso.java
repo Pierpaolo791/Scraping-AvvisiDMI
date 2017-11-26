@@ -22,6 +22,9 @@ public class Avviso {
     public URL getLink() {
         return this.link;
     }
+    public String getStrLink() {
+        return this.link.toString();
+    }
 
     public void setNomeCdL(String nomeCdL) {
         this.nomeCdL = nomeCdL;

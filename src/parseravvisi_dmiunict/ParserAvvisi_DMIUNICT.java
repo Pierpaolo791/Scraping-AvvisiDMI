@@ -12,7 +12,7 @@ import java.text.DateFormat;
 import javax.json.JsonObject;
 
 public class ParserAvvisi_DMIUNICT {
-    static String pathData = "data\\";
+    static String pathData = "../../Telegram-DMI-Bot/data/";
     static String[] linkArchivio = { // Link archivi avvisi dei CdL
         "http://web.dmi.unict.it/corsi/l-31/avvisi/",   // Triennale Informatica
         "http://web.dmi.unict.it/corsi/l-35/avvisi/", // Triennale Matematica
@@ -70,11 +70,25 @@ public class ParserAvvisi_DMIUNICT {
     
             if(!contenuto.contains(json.toString())) {
                 FileManager.scrivi(fileX,json.toString(),contenuto);
-                FileManager.scrivi(fileY,json.toString());
+                //Update 26/11/2017
+                String newsCompleta = new String();
+      
+                Document news = Jsoup.connect(x.getStrLink()).get();
+                newsCompleta = getNews(news);
+                FileManager.scrivi(fileY,"**"+x.getNomeCdL()+"**"+"\n"+newsCompleta);
             }
         }
+        
 
     }
- 
+            public static String getNews(Document news) {
+            String newsCompleta = new String();
+            
+            String titolo = "**"+news.getElementsByClass("page-title").text()+"**\n";
+            String link = news.baseUri()+"\n";
+            String contenuto = news.getElementsByClass("content").get(1).text();
+            newsCompleta = link+titolo+contenuto;
+            return newsCompleta;
+        }
 }
  
