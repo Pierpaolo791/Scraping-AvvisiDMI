@@ -9,10 +9,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.text.DateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.JsonObject;
 
 public class ParserAvvisi_DMIUNICT {
-    static String pathData = "../../Telegram-DMI-Bot/data/";
+    static String pathData = leggiPath();
     static String[] linkArchivio = { // Link archivi avvisi dei CdL
         "http://web.dmi.unict.it/corsi/l-31/avvisi/",   // Triennale Informatica
         "http://web.dmi.unict.it/corsi/l-35/avvisi/", // Triennale Matematica
@@ -31,7 +33,7 @@ public class ParserAvvisi_DMIUNICT {
         Parser parser;
         FileManager fm = new FileManager();
         File fileX=null, fileY=null;
-        
+        leggiPath();
 
         try {
             fileX = fm.file(pathData+fileName[0]);
@@ -89,6 +91,26 @@ public class ParserAvvisi_DMIUNICT {
             String contenuto = news.getElementsByClass("content").get(1).text();
             newsCompleta = link+titolo+contenuto;
             return newsCompleta;
+        }
+            
+        public static String leggiPath()  {
+                    String path = new String();
+                    FileManager fm = new FileManager();
+                    File f = null;
+                    try {
+                        f = fm.file("config");
+                    } catch (FileException ex) {
+                        ex.printStackTrace();
+                    }
+                    try {
+                        path = FileManager.leggi(f);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    
+                    
+                    return path;
+                    
         }
 }
  
