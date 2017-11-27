@@ -1,6 +1,9 @@
 package parseravvisi_dmiunict;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import org.jsoup.nodes.Document;
 import org.jsoup.Jsoup;
@@ -14,7 +17,7 @@ import java.util.logging.Logger;
 import javax.json.JsonObject;
 
 public class ParserAvvisi_DMIUNICT {
-    static String pathData = leggiPath();
+    
     static String[] linkArchivio = { // Link archivi avvisi dei CdL
         "http://web.dmi.unict.it/corsi/l-31/avvisi/",   // Triennale Informatica
         "http://web.dmi.unict.it/corsi/l-35/avvisi/", // Triennale Matematica
@@ -28,12 +31,11 @@ public class ParserAvvisi_DMIUNICT {
 
 
     public static void main(String[] args) throws IOException {
-        
+        String pathData = leggiPath();
         Document doc[] = new Document[4]; // 0, html tr. inf || 1, html  tr. mat || 2, html mag. inf || 3, html mag. matematica
         Parser parser;
         FileManager fm = new FileManager();
         File fileX=null, fileY=null;
-        leggiPath();
 
         try {
             fileX = fm.file(pathData+fileName[0]);
@@ -94,21 +96,21 @@ public class ParserAvvisi_DMIUNICT {
         }
             
         public static String leggiPath()  {
-                    String path = new String();
+                    String path=null;
                     FileManager fm = new FileManager();
                     File f = null;
                     try {
                         f = fm.file("config");
+                        FileReader fr = new FileReader(f);
+                        BufferedReader br = new BufferedReader(fr);
+                        path = br.readLine();
                     } catch (FileException ex) {
                         ex.printStackTrace();
-                    }
-                    try {
-                        path = FileManager.leggi(f);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    
-                    
+                    } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ParserAvvisi_DMIUNICT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ParserAvvisi_DMIUNICT.class.getName()).log(Level.SEVERE, null, ex);
+        }
                     return path;
                     
         }
